@@ -1,14 +1,7 @@
 <template>
   <div class="wrapper">
-    <div class="search">
-      <label for="search">Search</label>
-      <input
-        id="search"
-        name="search"
-        v-model="searchValue"
-        @input="handleInput"
-      />
-    </div>
+    <Claim />
+    <SearchInput />
     <ul>
       <li v-for="item in results" :key="item.data[0].nasa_id">
         <p>{{ item.data[0].description }}</p>
@@ -20,11 +13,17 @@
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import Claim from '@/components/Claim.vue';
+import SearchInput from '@/components/SearchInput.vue';
 
 const API = 'https://images-api.nasa.gov/search';
 
 export default {
   name: 'Search',
+  components: {
+    Claim,
+    SearchInput,
+  },
   data() {
     return {
       searchValue: '',
@@ -46,28 +45,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  html {
-    box-sizing: border-box;
-  }
+  @import url('https://fonts.googleapis.com/css?family=Poppins');
+
   *, *:before, *:after {
     box-sizing: border-box;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
   }
   .wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin: 0;
     padding: 30px;
     width: 100%;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: url('../assets/bg_sky.jpg') no-repeat center;
+    background-size: cover;
   }
-  .search {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    input {
-      height: 30px;
-      border: none;
-      border-bottom: 1px solid black;
-    }
-  }
+
 </style>
